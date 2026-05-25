@@ -1,0 +1,452 @@
+/* ============================================================
+   Scientific Notebook · Global stylesheet
+   ============================================================ */
+
+:root {
+	/* Paper */
+	--paper: #ebe5d6;
+	--paper-deep: #e3dcc8;
+	--paper-soft: #f1ecde;
+	--paper-shade: #d8d0b8;
+
+	/* Ink */
+	--ink: #1a1612;
+	--ink-2: #4a4339;
+	--ink-mute: #8a8174;
+	--ink-faint: #b6ad97;
+
+	/* Rules / lines */
+	--rule: #cdc4ad;
+	--rule-strong: #a59c84;
+
+	/* Accent */
+	--accent: #c8401f;
+	--accent-deep: #9c2e15;
+	--accent-soft: #e8a99a;
+
+	/* Series colors */
+	--c-exact: #3a5d3a;
+	--c-euler: #c8401f;
+	--c-rk4: #2a4d6e;
+	--c-milne: #5c4d8e;
+
+	/* Type families */
+	--font-display: 'Fraunces', 'Times New Roman', serif;
+	--font-body: 'IBM Plex Sans', system-ui, sans-serif;
+	--font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+	/* Sizes */
+	--gutter: clamp(1rem, 3vw, 2.5rem);
+	--rule-w: 1px;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	background: var(--paper);
+	color: var(--ink);
+	font-family: var(--font-body);
+	font-feature-settings:
+		'kern' 1,
+		'liga' 1,
+		'calt' 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	font-size: 16px;
+	line-height: 1.5;
+	min-height: 100%;
+}
+
+body {
+	/* very subtle vertical paper warmth */
+	background:
+		radial-gradient(ellipse 80% 60% at 20% 0%, rgba(255, 250, 235, 0.5) 0%, transparent 60%),
+		radial-gradient(ellipse 70% 50% at 90% 100%, rgba(200, 180, 140, 0.15) 0%, transparent 60%),
+		var(--paper);
+	background-attachment: fixed;
+	overflow-x: hidden;
+}
+
+/* Numbers everywhere — tabular, lining */
+.tabular,
+input[type='number'],
+code,
+pre,
+table,
+.metric-value {
+	font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Selection */
+::selection {
+	background: var(--ink);
+	color: var(--paper);
+}
+
+/* ============================================================
+   Typography defaults
+   ============================================================ */
+
+.display {
+	font-family: var(--font-display);
+	font-weight: 400;
+	font-variation-settings:
+		'opsz' 144,
+		'wght' 400,
+		'SOFT' 0;
+	line-height: 0.88;
+	letter-spacing: -0.025em;
+	color: var(--ink);
+}
+
+.eyebrow {
+	font-family: var(--font-mono);
+	font-size: 0.7rem;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--ink-mute);
+	font-weight: 500;
+}
+
+.caption {
+	font-family: var(--font-mono);
+	font-size: 0.68rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--ink-mute);
+	font-weight: 500;
+}
+
+.mono {
+	font-family: var(--font-mono);
+}
+
+.italic-serif {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-variation-settings:
+		'opsz' 18,
+		'wght' 400;
+}
+
+/* ============================================================
+   Inputs — form-as-questionnaire (underline only)
+   ============================================================ */
+
+input,
+select,
+button,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.field > .field-label {
+	font-family: var(--font-mono);
+	font-size: 0.68rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--ink-mute);
+	font-weight: 500;
+}
+
+.field input[type='number'],
+.field input[type='text'],
+.field select {
+	appearance: none;
+	-webkit-appearance: none;
+	background: transparent;
+	border: 0;
+	border-bottom: 1px solid var(--ink);
+	padding: 0.4rem 0.1rem 0.4rem;
+	font-family: var(--font-mono);
+	font-size: 1.05rem;
+	color: var(--ink);
+	border-radius: 0;
+	outline: none;
+	transition: border-color 120ms ease;
+	width: 100%;
+}
+
+.field input[type='number']:hover,
+.field input[type='text']:hover,
+.field select:hover {
+	border-bottom-color: var(--accent-deep);
+}
+
+.field input[type='number']:focus,
+.field input[type='text']:focus,
+.field select:focus {
+	border-bottom-color: var(--accent);
+	box-shadow: inset 0 -3px 0 0 var(--accent-soft);
+}
+
+.field select {
+	background-image:
+		linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+		linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+	background-position:
+		calc(100% - 12px) 1.05rem,
+		calc(100% - 7px) 1.05rem;
+	background-size:
+		5px 5px,
+		5px 5px;
+	background-repeat: no-repeat;
+	padding-right: 1.5rem;
+	cursor: pointer;
+}
+
+/* Remove default number spinners (we keep them subtle) */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+	opacity: 0.3;
+}
+
+/* ============================================================
+   Custom checkboxes — [ ] / [×]
+   ============================================================ */
+
+.check {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 1.05rem;
+	height: 1.05rem;
+	border: 1px solid var(--ink);
+	background: transparent;
+	cursor: pointer;
+	position: relative;
+	flex-shrink: 0;
+	margin: 0;
+	border-radius: 0;
+	transition: background 120ms ease;
+}
+
+.check:hover {
+	background: var(--paper-shade);
+}
+
+.check:checked {
+	background: var(--ink);
+}
+
+.check:checked::after {
+	content: '';
+	position: absolute;
+	inset: 2px;
+	background:
+		linear-gradient(
+			to top right,
+			transparent 45%,
+			var(--paper) 45%,
+			var(--paper) 55%,
+			transparent 55%
+		),
+		linear-gradient(
+			to top left,
+			transparent 45%,
+			var(--paper) 45%,
+			var(--paper) 55%,
+			transparent 55%
+		);
+}
+
+.check:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6rem;
+	font-family: var(--font-mono);
+	font-size: 0.78rem;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	font-weight: 500;
+	background: var(--ink);
+	color: var(--paper);
+	border: 1px solid var(--ink);
+	padding: 1rem 1.4rem;
+	cursor: pointer;
+	border-radius: 0;
+	transition:
+		background 140ms ease,
+		color 140ms ease,
+		border-color 140ms ease;
+	width: 100%;
+}
+
+.btn:hover:not(:disabled) {
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+.btn:active:not(:disabled) {
+	background: var(--accent-deep);
+	border-color: var(--accent-deep);
+}
+
+.btn:disabled {
+	background: transparent;
+	color: var(--ink-mute);
+	border: 1px dashed var(--rule-strong);
+	cursor: not-allowed;
+}
+
+.btn .arrow {
+	display: inline-block;
+	transition: transform 200ms ease;
+}
+
+.btn:hover:not(:disabled) .arrow {
+	transform: translateX(4px);
+}
+
+/* ============================================================
+   function-plot overrides
+   ============================================================ */
+
+:global(.function-plot) {
+	background: transparent !important;
+}
+
+:global(.function-plot text) {
+	font-family: var(--font-mono) !important;
+	font-size: 10px !important;
+	fill: var(--ink-mute) !important;
+}
+
+:global(.function-plot .x.axis-label),
+:global(.function-plot .y.axis-label) {
+	fill: var(--ink) !important;
+	font-weight: 500 !important;
+}
+
+:global(.function-plot .domain) {
+	stroke: var(--ink) !important;
+	stroke-width: 1 !important;
+}
+
+:global(.function-plot .tick line) {
+	stroke: var(--rule) !important;
+	stroke-width: 0.5 !important;
+}
+
+:global(.function-plot .tick text) {
+	fill: var(--ink-2) !important;
+}
+
+:global(.function-plot .grid line) {
+	stroke: var(--rule) !important;
+	stroke-opacity: 0.5 !important;
+}
+
+:global(.function-plot .top-right-legend) {
+	display: none !important;
+}
+
+:global(.function-plot .origin) {
+	stroke: var(--ink-2) !important;
+	stroke-width: 0.5 !important;
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes draw-line {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+
+.stagger {
+	opacity: 0;
+	animation: fade-up 540ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+	animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-delay: 0ms !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+/* ============================================================
+   Decorative rules / dividers
+   ============================================================ */
+
+hr.em-rule {
+	border: 0;
+	border-top: 1px solid var(--ink);
+	margin: 0;
+}
+
+hr.fine {
+	border: 0;
+	border-top: 1px solid var(--rule);
+	margin: 0;
+}
+
+/* ============================================================
+   Utility
+   ============================================================ */
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
